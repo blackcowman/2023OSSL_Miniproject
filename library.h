@@ -23,5 +23,5 @@ int selectBook();
 void saveBook(Book *b[], int count);
 int loadBook(Book *b[]);
 void searchBook(Book *s[], int count);
-void usermenu();
-void librarianmenu();
+int usermenu();
+int librarianmenu();

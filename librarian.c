@@ -10,7 +10,7 @@ int deleteBook(Book *b);
 int selectDataNo(Book *b[], int count){
   int no;
   listBook(b, count);
-  printf("번호는 (취소: 0)? ");
+  printf("몇 번 도서인가요(취소: 0)? ");
   scanf("%d", &no);
   return no;
 };
@@ -19,8 +19,20 @@ int selectBook(){
 
 };
 
-void saveBook(Book *b[], int count);
-int loadBook(Book *b[]);
+void saveBook(Book *b[], int count){
+    FILE *fp = fopen("book.txt", "wt");
+    for (int i = 0; i < count; i++) {
+        if (b[i]->del == 1)
+        continue;
+        fprintf(fp, "%2d %2s %2d %2d %s %s\n", b[i]->number, b[i]->ganre, b[i]->borrow,
+            b[i]->reservation, b[i]->author, b[i]->title);
+  }
+  fclose(fp);
+  printf("=>저장됨!!\n");
+}
+int loadBook(Book *b[]){
+    
+};
 void searchBook(Book *s[], int count);
 
 int librarianmenu(){
