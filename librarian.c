@@ -31,7 +31,30 @@ void saveBook(Book *b[], int count){
   printf("=>저장됨!!\n");
 }
 int loadBook(Book *b[]){
-    
+      int i = 0;
+  FILE *fp = fopen("book.txt", "rt");
+  if (fp == NULL)
+    return -1;
+  for (; i < 100; i++) {
+    b[i] = (Book *)malloc(sizeof(Book));
+    if (b[i] == NULL)
+      continue;
+    fscanf(fp, "%d", &b[i]->number);
+
+    if (feof(fp))
+      break;
+
+    fscanf(fp, "%s", b[i]->ganre);
+    fscanf(fp, "%d", &b[i]->borrow);
+    fscanf(fp, "%d", &b[i]->reservation);
+    // fgets(m[i]->name, sizeof(m[i]->name), fp); // fgets를 통해서 읽어들임
+    fscanf(fp, "%s", b[i]->author);
+    fscanf(fp, "%[^\n]%*c", b[i]->title);
+  }
+  fclose(fp);
+  printf("=>로딩 성공!!\n");
+  return i;
+
 };
 void searchBook(Book *s[], int count);
 
