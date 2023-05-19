@@ -22,7 +22,9 @@ int selectBook(){
 void saveBook(Book *b[], int count);
 int loadBook(Book *b[]);
 void searchBook(Book *s[], int count);
-void librarianmenu(){
+
+int librarianmenu(){
+    int menu;
     printf("\n***도서관 이용 시스템(libraian)***\n");
     printf("1. 신규 도서 등록\n");
     printf("2. 도서 삭제\n");
@@ -31,4 +33,6 @@ void librarianmenu(){
     printf("5. 도서 검색\n");
     printf("0. 로그아웃\n");
     printf(">> ");
+    scanf("%d", &menu);
+    return menu;
 };

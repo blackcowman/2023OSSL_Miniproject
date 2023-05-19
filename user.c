@@ -8,7 +8,8 @@ int reservationBook(Book *b){
 
 }
 
-void usermenu(){
+int usermenu(){
+    int menu;
     printf("\n***도서관 이용 시스템(user)***\n");
     printf("1. 도서 목록\n");
     printf("2. 도서 대출\n");
@@ -18,4 +19,6 @@ void usermenu(){
     printf("6. 이주의 책 보기\n");
     printf("0. 로그아웃\n");
     printf(">> ");
+    scanf("%d", &menu);
+    return menu;
 }
