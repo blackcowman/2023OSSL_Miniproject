@@ -1,7 +1,12 @@
 #include "library.h"
 
-int borrowBook(Book *b);
-int reservationBook(Book *b);
+int borrowBook(Book *b){
+
+}
+
+int reservationBook(Book *b){
+
+}
 
 void usermenu(){
     printf("\n***도서관 이용 시스템(user)***\n");

@@ -7,8 +7,18 @@ int deleteBook(Book *b);
 
 
 
-int selectDataNo(Book *b[], int count);
-int selectBook();
+int selectDataNo(Book *b[], int count){
+  int no;
+  listBook(b, count);
+  printf("번호는 (취소: 0)? ");
+  scanf("%d", &no);
+  return no;
+};
+
+int selectBook(){
+
+};
+
 void saveBook(Book *b[], int count);
 int loadBook(Book *b[]);
 void searchBook(Book *s[], int count);
