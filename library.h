@@ -12,9 +12,9 @@ typedef struct {
     int del;
 } Book;
 
-int addBook(Book *b);
+int addBook(Book *b, int index, int n);
 void readBook(Book b);
-void listBook(Book *b[], int count);
+void listBook(Book *b[], int count, int n);
 int deleteBook(Book *b);
 int borrowBook(Book *b);
 int returnBook(Book *b);
