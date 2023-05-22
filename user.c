@@ -46,7 +46,7 @@ int selectBook(Book *b[], int count){
   return no;
 }
 
-int borrowBook(Book *b){
+int borrowBook(Book *b[], int count){
     int no = selectBook(b, count);
     if(b[no->borrow == 0) {
         b[no]->borrow = 1;
@@ -68,7 +68,7 @@ int reservationBook(Book *b[], int count){
     return 0;
 }
 
-int returnBook(Book *b){
+int returnBook(Book *b[], int count){
     int no = selectBook(b, count);
     if(b[no->borrow == 1) {
         b[no]->borrow = 0;
