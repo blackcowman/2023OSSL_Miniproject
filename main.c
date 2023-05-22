@@ -31,6 +31,7 @@ int main(){
 
             if(menu == 0){
                 // printf("0. 로그아웃\n");
+                printf("로그아웃되었습니다\n");
                 break;
             }else if(menu == 1){
                 // printf("1. 도서 목록\n");
@@ -58,10 +59,14 @@ int main(){
                     }
                 }
                 
-
-
             }else if(menu == 3){
                 // printf("3. 도서 반납\n");
+                no = selectBorrowedDataNo(sp, index);
+                if (no == 0) {
+                    printf("취소됨!\n");
+                    continue;
+                }
+                returnBook(sp[no - 1]);
             }else if(menu == 4){
                 // printf("4. 도서 검색\n");
             }else if(menu == 5){
@@ -74,9 +79,11 @@ int main(){
             menu = librarianmenu();
             if(menu == 0){
                 // printf("0. 로그아웃\n");
+                printf("로그아웃되었습니다\n");
                 break;
             }else if(menu == 1){
                 // printf("1. 신규 도서 등록\n");
+
             }else if(menu == 2){
                 // printf("2. 도서 삭제\n");
             }else if(menu == 3){

@@ -1,8 +1,48 @@
 #include "library.h"
 
 int addBook(Book *b);
-void readBook(Book b);
-void listBook(Book *b[], int count);
+void readBook(Book b){
+  printf("%s %2s %2d %2s %2d %2d\n", b.title,b.author, b.number, b.ganre, b.borrow,
+         b.reservation);
+}
+void listBook(Book *b[], int count) {
+  int i = 0;
+  int countNumber = 0;
+  printf("\nNo  책 제목  작가명   청구번호   장르   대출여부  예약여부\n");
+  printf("=================================\n");
+  for (; i < count; i++) {
+    if (b[i]->del == 1)
+      continue;
+    printf("%2d ", i + 1);
+    readBook(*b[i]);
+    countNumber++;
+  }
+
+  printf("\n");
+  printf("=>총 예약 %d건 \n\n", countNumber);
+}
+
+void listBorrowedBook(Book *b[], int count) {
+  int i = 0;
+  int countNumber = 0;
+  printf("\nNo  책 제목  작가명   청구번호   장르   대출여부  예약여부\n");
+  printf("=================================\n");
+  for (; i < count; i++) {
+    if (b[i]->del == 1 )
+      continue;
+    if(b[i]->borrow == 0){
+      countNumber++;
+      continue;
+    }
+    printf("%2d ", i + 1);
+    readBook(*b[i]);
+    countNumber++;
+  }
+
+  printf("\n");
+  printf("=>총 예약 %d건 \n\n", countNumber);
+}
+
 int deleteBook(Book *b);
 
 
@@ -13,11 +53,11 @@ int selectDataNo(Book *b[], int count){
   printf("몇 번 도서인가요(취소: 0)? ");
   scanf("%d", &no);
   return no;
-};
+}
 
 int selectBook(){
 
-};
+}
 
 void saveBook(Book *b[], int count){
     FILE *fp = fopen("book.txt", "wt");
@@ -55,7 +95,7 @@ int loadBook(Book *b[]){
   printf("=>로딩 성공!!\n");
   return i;
 
-};
+}
 void searchBook(Book *s[], int count);
 
 int librarianmenu(){
@@ -70,4 +110,4 @@ int librarianmenu(){
     printf(">> ");
     scanf("%d", &menu);
     return menu;
-};
+}

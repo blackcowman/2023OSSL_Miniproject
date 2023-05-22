@@ -26,3 +26,5 @@ int loadBook(Book *b[]);
 void searchBook(Book *s[], int count);
 int usermenu();
 int librarianmenu();
+void listBorrowedBook(Book *b[], int count);
+int selectBorrowedDataNo(Book *b[], int count);
