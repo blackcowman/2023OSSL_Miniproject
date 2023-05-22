@@ -1,17 +1,81 @@
 #include "library.h"
 
+void readBook(Book b){
+  printf("%d %s %2s %s %2s %2d %2d\n", b.number, b.title, b.author, b.code, b.publisher, b.borrow,
+         b.reservation);
+}
+
+void listBook(Book *b[], int count, int n) {
+  int i = 0;
+  int countNumber = 0;
+  
+  if (n == -1) {
+    printf("\nNo  책 제목  작가명   출판사   청구번호   대출여부  예약여부\n");
+    printf("===========================================================\n");
+    for (; i < count; i++) {
+      if (b[i]->del == 1)
+        continue;
+      printf("%2d ", i + 1);
+      readBook(*b[i]);
+      countNumber++;
+    }
+  } else {
+    if(b[n]->del == 1) printf("해당 도서는 삭제되었습니다.\n");
+    else {
+      printf("\nNo  책 제목  작가명   출판사   청구번호   대출여부  예약여부\n");
+      printf("===========================================================\n");
+      readBook(*b[n]);
+    }
+  }
+
+  printf("\n");
+  printf("=>총 %d권 \n\n", countNumber);
+}
+
+int selectBook(Book *b[], int count){
+  int no;
+  int re = 1;
+  listBook(b, count, -1);
+  printf("몇 번 도서인가요(취소: 0)? ");
+  scanf("%d", &no);
+  if(b[no+1]->del == 1) {
+    printf("이 책은 삭제되었습니다..\n");
+    no = 0;
+  } else listBook(b, count, no+1);
+  
+  return no;
+}
+
 int borrowBook(Book *b){
-    b->borrow = 1;
+    int no = selectBook(b, count);
+    if(b[no->borrow == 0) {
+        b[no]->borrow = 1;
+        printf("대출되었습니다.\n");
+    } else {
+        printf("이미 대출된 책입니다.\n");
+    }
     return 0;
 }
 
-int reservationBook(Book *b){
-    b->reservation = 1;
+int reservationBook(Book *b[], int count){
+    int no = selectBook(b, count);
+    if(b[no->reservation == 0) {
+        b[no]->reservation = 1;
+        printf("예약되었습니다.\n");
+    } else {
+        printf("이미 예약된 책입니다.\n");
+    }
     return 0;
 }
 
 int returnBook(Book *b){
-    b->borrow = 0;
+    int no = selectBook(b, count);
+    if(b[no->borrow == 1) {
+        b[no]->borrow = 0;
+        printf("반납되었습니다.\n");
+    } else {
+        printf("이미 반납된 책입니다.\n");
+    }
     return 0;
 }
 
