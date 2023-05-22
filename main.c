@@ -4,12 +4,12 @@
 int main(){
     int usertype;
     Book *sp[100];
-    int index = 0; //ë°ì´í„° ë²ˆí˜¸
+    int index = 0; //µ¥ÀÌÅÍ ¹øÈ£
     int count = 0, menu;
     int no;
     count = loadBook(sp);
     if (count == -1) {
-        printf("ë¡œë”© ì‹¤íŒ¨!!!\n");
+        printf("·Îµù ½ÇÆĞ!!!\n");
         count = 0;
     } else {
         index = count;
@@ -19,116 +19,139 @@ int main(){
     {
         while (1)
         {
-            printf("ì–´ëŠ ê³„ì •ìœ¼ë¡œ ì ‘ì†í•˜ì‹œê² ìŠµë‹ˆê¹Œ? (1. ìœ ì € 2. ì‚¬ì„œ 0. í”„ë¡œê·¸ë¨ ì¢…ë£Œ)\n");
+            printf("¾î´À °èÁ¤À¸·Î Á¢¼ÓÇÏ½Ã°Ú½À´Ï±î? (1. À¯Àú 2. »ç¼­ 0. ÇÁ·Î±×·¥ Á¾·á)\n");
             scanf("%d", &usertype);
             if(usertype ==1 || usertype == 2|| usertype == 0) break;
-            else printf("ì˜ëª» ì…ë ¥í•˜ì…¨ìŠµë‹ˆë‹¤.");
+            else printf("Àß¸ø ÀÔ·ÂÇÏ¼Ì½À´Ï´Ù.");
 
         }
-        if(usertype == 1){
-            //ì—¬ê¸°ì— ìœ ì € ë©”ë‰´ë¥¼ ì¶œë ¥í•˜ëŠ” í•¨ìˆ˜ë¥¼ ë„£ì„ ê²ƒ
+        while (1)
+        {
+            if(usertype == 1){
+            //¿©±â¿¡ À¯Àú ¸Ş´º¸¦ Ãâ·ÂÇÏ´Â ÇÔ¼ö¸¦ ³ÖÀ» °Í
             menu = usermenu();
-
             if(menu == 0){
-                // printf("0. ë¡œê·¸ì•„ì›ƒ\n");
-                printf("ë¡œê·¸ì•„ì›ƒë˜ì—ˆìŠµë‹ˆë‹¤\n");
+                // printf("0. ·Î±×¾Æ¿ô\n");
+                printf("·Î±×¾Æ¿ôµÇ¾ú½À´Ï´Ù\n");
                 break;
             }else if(menu == 1){
-                // printf("1. ë„ì„œ ëª©ë¡\n");
-                listBook(sp, count, -1);
+                // printf("1. µµ¼­ ¸ñ·Ï\n");
+                listBook(sp, index);
             }else if(menu == 2){
-                // printf("2. ë„ì„œ ëŒ€ì¶œ\n");
-                no = selectBook(sp, count);
+                // printf("2. µµ¼­ ´ëÃâ\n");
+                no = selectDataNo(sp, index);
                 if (no == 0) {
-                    printf("ì·¨ì†Œë˜ì—ˆìŠµë‹ˆë‹¤.\n");
+                    printf("Ãë¼ÒµÊ!\n");
                     continue;
                 }
                 int borrowok;
 
-                printf("ëŒ€ì¶œ í•˜ì‹œê² ìŠµë‹ˆê¹Œ?(ëŒ€ì¶œ:1)");
+                printf("´ëÃâ ÇÏ½Ã°Ú½À´Ï±î?(´ëÃâ:1)");
                 scanf("%d", &borrowok);
                 if (borrowok == 1) {
                     if (sp[no - 1]->borrow == 1) {
-                        int reservationok = 0;
-                        printf("ì±…ì´ ì´ë¯¸ ëŒ€ì¶œì¤‘ì…ë‹ˆë‹¤. ì˜ˆì•½í•˜ì‹œê² ìŠµë‹ˆê¹Œ?(ì˜ˆì•½:1)\n >> ");
-                        scanf("%d", &reservationok);
-                        reservationBook(sp[no - 1]);
-                        printf("ì˜ˆì•½ë˜ì—ˆìŠµë‹ˆë‹¤\n");
+                    int reservationok = 0;
+                    printf("Ã¥ÀÌ ÀÌ¹Ì ´ëÃâÁßÀÔ´Ï´Ù. ¿¹¾àÇÏ½Ã°Ú½À´Ï±î?(¿¹¾à:1)\n >> ");
+                    scanf("%d", &reservationok);
+                        if(reservationok == 1){
+                            reservationBook(sp[no - 1]);
+                        }
                     } else {
-                        borrowBook(sp[no - 1]);
-                        printf("ëŒ€ì¶œë˜ì—ˆìŠµë‹ˆë‹¤\n");
+                    borrowBook(sp[no - 1]);
                     }
                 }
                 
             }else if(menu == 3){
-                // printf("3. ë„ì„œ ë°˜ë‚©\n");
+                // printf("3. µµ¼­ ¹İ³³\n");
                 no = selectBorrowedDataNo(sp, index);
                 if (no == 0) {
-                    printf("ì·¨ì†Œë¨!\n");
+                    printf("Ãë¼ÒµÊ!\n");
                     continue;
                 }
                 returnBook(sp[no - 1]);
             }else if(menu == 4){
-                // printf("4. ë„ì„œ ê²€ìƒ‰\n");
-                no = selectBook(sp, count);
+                // printf("4. µµ¼­ °Ë»ö\n");
+                searchBook(sp, index);
             }else if(menu == 5){
-                // printf("5. ë„ì„œ ì˜ˆì•½\n");
-                no = selectBook(sp, count);
+                // printf("5. µµ¼­ ¿¹¾à\n");
+                no = selectBorrowedDataNo(sp, index);
                 if (no == 0) {
-                    printf("ì·¨ì†Œë˜ì—ˆìŠµë‹ˆë‹¤.\n");
+                    printf("Ãë¼ÒµÊ!\n");
                     continue;
                 }
-                int reservationok;
-
-                printf("ì˜ˆì•½ í•˜ì‹œê² ìŠµë‹ˆê¹Œ?(ì˜ˆì•½:1)");
-                scanf("%d", &reservationok);
-                if (borrowok == 1) {
-                    if (sp[no - 1]->borrow == 1) {
-                        printf("ì±…ì´ ì´ë¯¸ ì˜ˆì•½ì¤‘ì…ë‹ˆë‹¤.");
-                    } else {
-                        reservationBook(sp[no - 1]);
-                        printf("ì˜ˆì•½ë˜ì—ˆìŠµë‹ˆë‹¤\n");
-                    }
-                }
+                reservationBook(sp[no - 1]);
+            }else if(menu == 6){
+                // printf("6. µµ¼­ ÀúÀå\n");
+                 saveBook(sp, index);
             }
         }
-        if (usertype == 2)
+        if (usertype ==2)
         {
-            //ì—¬ê¸°ì— ì‚¬ì„œ ë©”ë‰´ë¥¼ ì¶œë ¥í•˜ëŠ” í•¨ìˆ˜ë¥¼ ë„£ì„ ê²ƒ
+            //¿©±â¿¡ »ç¼­ ¸Ş´º¸¦ Ãâ·ÂÇÏ´Â ÇÔ¼ö¸¦ ³ÖÀ» °Í
             menu = librarianmenu();
             if(menu == 0){
-                // printf("0. ë¡œê·¸ì•„ì›ƒ\n");
-                printf("ë¡œê·¸ì•„ì›ƒë˜ì—ˆìŠµë‹ˆë‹¤\n");
+                // printf("0. ·Î±×¾Æ¿ô\n");
+                printf("·Î±×¾Æ¿ôµÇ¾ú½À´Ï´Ù\n");
                 break;
             }else if(menu == 1){
-                // printf("1. ì‹ ê·œ ë„ì„œ ë“±ë¡\n");
-                count = addBook(sp, count, 2);
+                // printf("1. ½Å±Ô µµ¼­ µî·Ï\n");
+                sp[index] = (Book *)malloc(sizeof(Book));
+                count += addBook(sp[index++],2);
             }else if(menu == 2){
-                // printf("2. ë„ì„œ ì‚­ì œ\n");
-                deleteBook(sp, count);
+                // printf("2. µµ¼­ »èÁ¦\n");
+                no = selectDataNo(sp, index);
+                if (no == 0) {
+                    printf("Ãë¼ÒµÊ!\n");
+                    continue;
+                }
+                int deleteok;
+                printf("Á¤¸»·Î »èÁ¦ÇÏ½Ã°Ú½À´Ï±î?(»èÁ¦:1)");
+                scanf("%d", &deleteok);
+                if (deleteok == 1) {
+                    deleteBook(sp[no - 1]);
+                    count--;
+                }
             }else if(menu == 3){
-                // printf("3. ë„ì„œ ì—…ë°ì´íŠ¸\n");
-                count = addBook(sp, count, 1);
+                // printf("3. µµ¼­ ¾÷µ¥ÀÌÆ®\n");
+                no = selectDataNo(sp, index);
+                if (no == 0) {
+                    printf("Ãë¼ÒµÊ!\n");
+                    continue;
+                }
+                addBook(sp[no - 1],1);
             }else if(menu == 4){
-                // printf("4. ë„ì„œ ëª©ë¡\n");
-                listBook(sp, count, -1);
+                // printf("4. µµ¼­ ¸ñ·Ï\n");
+                listBook(sp, index);
+
             }else if(menu == 5){
-                // printf("5. ë„ì„œ ê²€ìƒ‰\n");
-                int no = selectBook(sp, count);
+                // printf("5. µµ¼­ °Ë»ö\n");
+                searchBook(sp, index);
+
+            }else if(menu == 6){
+                // printf("6. µµ¼­ ÀúÀå\n");
+                saveBook(sp, index);
+
             }
 
-
         }
+            if(usertype==0){
+            break;
+            }
+        }
+        
+        
+        
         if(usertype==0){
-        break;
-    }
+            break;
+        }
     }
     
-    for (int i = 0; i < index; i++) {
+   
+  for (int i = 0; i < index; i++) {
     free(sp[i]);
   }
-  
-  printf("ì¢…ë£Œë¨!\n");
+
+  printf("Á¾·áµÊ!\n");
   return 0;
 
 }

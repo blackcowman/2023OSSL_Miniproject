@@ -1,72 +1,43 @@
 #include "library.h"
 
-int addBook(Book *b, int count, int n) {
-  printf("ì œëª©ì„ ì…ë ¥í•´ì£¼ì„¸ìš”: ");
+int addBook(Book *b,  int n) {
+  printf("Á¦¸ñÀ» ÀÔ·ÂÇØÁÖ¼¼¿ä: ");
   scanf("%s", b->title);
 
-  printf("ì €ìë¥¼ ì…ë ¥í•´ì£¼ì„¸ìš”: ");
+  printf("ÀúÀÚ¸¦ ÀÔ·ÂÇØÁÖ¼¼¿ä: ");
   scanf("%s", b->author);
 
-  printf("ì¶œíŒì‚¬ë¥¼ ì…ë ¥í•´ì£¼ì„¸ìš” ");
+  printf("ÃâÆÇ»ç¸¦ ÀÔ·ÂÇØÁÖ¼¼¿ä ");
   scanf("%s", b->publisher);
 
-  printf("ë¥¼ ì…ë ¥í•´ì£¼ì„¸ìš” ");
-  scanf("%s", b->code);
+  printf("Ã»±¸±âÈ£¸¦ ÀÔ·ÂÇØÁÖ¼¼¿ä ");
+  scanf("%d", &b->number);
 
   b->borrow = 0;
   b->reservation = 0;
   b->del = 0;
 
   if(n == 2) {
-    count++;
-    b->number = count;
-    printf("=> ì¶”ê°€ë˜ì—ˆìŠµë‹ˆë‹¤.\n");
+    printf("=> Ãß°¡µÇ¾ú½À´Ï´Ù.\n");
+    return 1;
   } else {
-    printf("=> ìˆ˜ì •ë˜ì—ˆìŠµë‹ˆë‹¤.\n");
+    printf("=> ¼öÁ¤µÇ¾ú½À´Ï´Ù.\n");
   }
   
-  return count;
+  return 1;
 }
 
 void readBook(Book b){
-  printf("%d %s %2s %s %2s %2d %2d\n", b.number, b.title, b.author, b.code, b.publisher, b.borrow,
+  printf("%d %s %2s %2d  %2s %2d %2d\n", b.number, b.title, b.author, b.number, b.publisher, b.borrow,
          b.reservation);
 }
-
-void listBook(Book *b[], int count, int n) {
+void listBook(Book *b[], int count) {
   int i = 0;
   int countNumber = 0;
-  
-  if (n == -1) {
-    printf("\nNo  ì±… ì œëª©  ì‘ê°€ëª…   ì¶œíŒì‚¬   ì²­êµ¬ë²ˆí˜¸   ëŒ€ì¶œì—¬ë¶€  ì˜ˆì•½ì—¬ë¶€\n");
-    printf("===========================================================\n");
-    for (; i < count; i++) {
-      if (b[i]->del == 1)
-        continue;
-      printf("%2d ", i + 1);
-      readBook(*b[i]);
-      countNumber++;
-    }
-  } else {
-    if(b[n]->del == 1) printf("í•´ë‹¹ ë„ì„œëŠ” ì‚­ì œë˜ì—ˆìŠµë‹ˆë‹¤.\n");
-    else {
-      printf("\nNo  ì±… ì œëª©  ì‘ê°€ëª…   ì¶œíŒì‚¬   ì²­êµ¬ë²ˆí˜¸   ëŒ€ì¶œì—¬ë¶€  ì˜ˆì•½ì—¬ë¶€\n");
-      printf("===========================================================\n");
-      readBook(*b[n]);
-    }
-  }
-
-  printf("\n");
-  printf("=>ì´ %dê¶Œ \n\n", countNumber);
-}
-
-void listBorrowedBook(Book *b[], int count) {
-  int i = 0;
-  int countNumber = 0;
-  printf("\nNo  ì±… ì œëª©  ì‘ê°€ëª…   ì¶œíŒì‚¬   ì²­êµ¬ë²ˆí˜¸   ëŒ€ì¶œì—¬ë¶€  ì˜ˆì•½ì—¬ë¶€\n");
+  printf("\nNo Ã»±¸±âÈ£   Ã¥ Á¦¸ñ  ÀÛ°¡¸í   Ã»±¸¹øÈ£   ´ëÃâ¿©ºÎ  ¿¹¾à¿©ºÎ\n");
   printf("=================================\n");
   for (; i < count; i++) {
-    if (b[i]->del == 1 || b[i]->borrow == 0)
+    if (b[i]->del == 1)
       continue;
     printf("%2d ", i + 1);
     readBook(*b[i]);
@@ -74,35 +45,48 @@ void listBorrowedBook(Book *b[], int count) {
   }
 
   printf("\n");
-  printf("=>ì´ %dê¶Œ \n\n", countNumber);
+  printf("=>µµ¼­ ÃÑ %d±Ç \n\n", countNumber);
 }
 
-void deleteBook(Book *b[], int count) {
-  int exe;
-  int no = selectBook(b, count);
-  if(no != 0) {
-    printf("ì´ ë„ì„œë¥¼ ì‚­ì œí•˜ì‹œê² ìŠµë‹ˆê¹Œ(ì·¨ì†Œ: 0)? ");
-    scanf("%d", exe);
-    if(exe == 0)
-      printf("ì·¨ì†Œë˜ì—ˆìŠµë‹ˆë‹¤.\n");
-    else {
-      b[no+1]->del = 1;
-      printf("ì‚­ì œë˜ì—ˆìŠµë‹ˆë‹¤.\n");
+void listBorrowedBook(Book *b[], int count) {
+  int i = 0;
+  int countNumber = 0;
+  printf("\nNo  Ã»±¸±âÈ£   Ã¥ Á¦¸ñ  ÀÛ°¡¸í   Ã»±¸¹øÈ£   ´ëÃâ¿©ºÎ  ¿¹¾à¿©ºÎ\n");
+  printf("=================================\n");
+  for (; i < count; i++) {
+    if (b[i]->del == 1 )
+      continue;
+    if(b[i]->borrow == 0){
+      countNumber++;
+      continue;
     }
+    printf("%2d ", i + 1);
+    readBook(*b[i]);
+    countNumber++;
   }
+
+  printf("\n");
+  printf("=>µµ¼­ ÃÑ %d°Ç \n\n", countNumber);
 }
 
-int selectBook(Book *b[], int count){
+int deleteBook(Book *b){
+  b->del = 1;
+};
+
+
+
+int selectDataNo(Book *b[], int count){
   int no;
-  int re = 1;
-  listBook(b, count, -1);
-  printf("ëª‡ ë²ˆ ë„ì„œì¸ê°€ìš”(ì·¨ì†Œ: 0)? ");
+  listBook(b, count);
+  printf("¸î ¹ø µµ¼­ÀÎ°¡¿ä(Ãë¼Ò: 0)? ");
   scanf("%d", &no);
-  if(b[no+1]->del == 1) {
-    printf("ì´ ì±…ì€ ì‚­ì œë˜ì—ˆìŠµë‹ˆë‹¤..\n");
-    no = 0;
-  } else listBook(b, count, no+1);
-  
+  return no;
+}
+int selectBorrowedDataNo(Book *b[], int count){
+  int no;
+  listBorrowedBook(b, count);
+  printf("¸î ¹ø µµ¼­ÀÎ°¡¿ä(Ãë¼Ò: 0)? ");
+  scanf("%d", &no);
   return no;
 }
 
@@ -115,11 +99,11 @@ void saveBook(Book *b[], int count){
             b[i]->reservation, b[i]->author, b[i]->title);
   }
   fclose(fp);
-  printf("=>ì €ì¥ë¨!!\n");
+  printf("=>ÀúÀåµÊ!!\n");
 }
 
 int loadBook(Book *b[]){
-  int i = 0;
+      int i = 0;
   FILE *fp = fopen("book.txt", "rt");
   if (fp == NULL)
     return -1;
@@ -135,25 +119,50 @@ int loadBook(Book *b[]){
     fscanf(fp, "%s", b[i]->publisher);
     fscanf(fp, "%d", &b[i]->borrow);
     fscanf(fp, "%d", &b[i]->reservation);
-    // fgets(m[i]->name, sizeof(m[i]->name), fp); // fgetsë¥¼ í†µí•´ì„œ ì½ì–´ë“¤ì„
+    // fgets(m[i]->name, sizeof(m[i]->name), fp); // fgets¸¦ ÅëÇØ¼­ ÀĞ¾îµéÀÓ
     fscanf(fp, "%s", b[i]->author);
     fscanf(fp, "%[^\n]%*c", b[i]->title);
   }
   fclose(fp);
-  printf("=>ë¡œë”© ì„±ê³µ!!\n");
+  printf("=>·Îµù ¼º°ø!!\n");
   return i;
 
+}
+void searchBook(Book *s[], int count) {
+  int scnt = 0;
+  char search[20];
+
+  printf("ÀÌ¸§Àº?");
+  scanf("%s", search);
+
+  printf("\nNo  Ã»±¸±âÈ£   Ã¥ Á¦¸ñ  ÀÛ°¡¸í   Ã»±¸¹øÈ£   ´ëÃâ¿©ºÎ  ¿¹¾à¿©ºÎ\n");
+  printf("=================================\n");
+  for (int i = 0; i < count; i++) {
+    if (s[i] == NULL)
+      continue;
+    if (strstr(s[i]->title, search) || strstr(s[i]->author, search)|| strstr(s[i]->publisher, search)) {
+      printf("%2d ", i + 1);
+      readBook(*s[i]);
+      scnt++;
+    }
+  }
+
+  if (scnt == 0)
+    printf("=> °Ë»öµÈ µ¥ÀÌÅÍ ¾øÀ½!\n");
+  else
+    printf("µµ¼­ ÃÑ %d°Ç\n", scnt);
 }
 
 int librarianmenu(){
     int menu;
-    printf("\n***ë„ì„œê´€ ì´ìš© ì‹œìŠ¤í…œ(libraian)***\n");
-    printf("1. ì‹ ê·œ ë„ì„œ ë“±ë¡\n");
-    printf("2. ë„ì„œ ì‚­ì œ\n");
-    printf("3. ë„ì„œ ì—…ë°ì´íŠ¸\n");
-    printf("4. ë„ì„œ ëª©ë¡\n");
-    printf("5. ë„ì„œ ê²€ìƒ‰\n");
-    printf("0. ë¡œê·¸ì•„ì›ƒ\n");
+    printf("\n***µµ¼­°ü ÀÌ¿ë ½Ã½ºÅÛ(libraian)***\n");
+    printf("1. ½Å±Ô µµ¼­ µî·Ï\n");
+    printf("2. µµ¼­ »èÁ¦\n");
+    printf("3. µµ¼­ ¾÷µ¥ÀÌÆ®\n");
+    printf("4. µµ¼­ ¸ñ·Ï\n");
+    printf("5. µµ¼­ °Ë»ö\n");
+    printf("6. µµ¼­ ÀúÀå\n");
+    printf("0. ·Î±×¾Æ¿ô\n");
     printf(">> ");
     scanf("%d", &menu);
     return menu;
