@@ -35,11 +35,12 @@ int main(){
                 break;
             }else if(menu == 1){
                 // printf("1. 도서 목록\n");
+                listBook(sp, count, -1);
             }else if(menu == 2){
                 // printf("2. 도서 대출\n");
-                no = selectDataNo(sp, index);
+                no = selectBook(sp, count);
                 if (no == 0) {
-                    printf("취소됨!\n");
+                    printf("취소되었습니다.\n");
                     continue;
                 }
                 int borrowok;
@@ -48,14 +49,14 @@ int main(){
                 scanf("%d", &borrowok);
                 if (borrowok == 1) {
                     if (sp[no - 1]->borrow == 1) {
-                    int reservationok = 0;
-                    printf("책이 이미 대출중입니다. 예약하시겠습니까?(예약:1)\n >> ");
-                    scanf("%d", &reservationok);
-                    reservationBook(sp[no - 1]);
-                    printf("예약되었습니다\n");
+                        int reservationok = 0;
+                        printf("책이 이미 대출중입니다. 예약하시겠습니까?(예약:1)\n >> ");
+                        scanf("%d", &reservationok);
+                        reservationBook(sp[no - 1]);
+                        printf("예약되었습니다\n");
                     } else {
-                    borrowBook(sp[no - 1]);
-                    printf("대출되었습니다\n");
+                        borrowBook(sp[no - 1]);
+                        printf("대출되었습니다\n");
                     }
                 }
                 
@@ -69,11 +70,29 @@ int main(){
                 returnBook(sp[no - 1]);
             }else if(menu == 4){
                 // printf("4. 도서 검색\n");
+                no = selectBook(sp, count);
             }else if(menu == 5){
                 // printf("5. 도서 예약\n");
+                no = selectBook(sp, count);
+                if (no == 0) {
+                    printf("취소되었습니다.\n");
+                    continue;
+                }
+                int reservationok;
+
+                printf("예약 하시겠습니까?(예약:1)");
+                scanf("%d", &reservationok);
+                if (borrowok == 1) {
+                    if (sp[no - 1]->borrow == 1) {
+                        printf("책이 이미 예약중입니다.");
+                    } else {
+                        reservationBook(sp[no - 1]);
+                        printf("예약되었습니다\n");
+                    }
+                }
             }
         }
-        if (usertype ==2)
+        if (usertype == 2)
         {
             //여기에 사서 메뉴를 출력하는 함수를 넣을 것
             menu = librarianmenu();
@@ -83,15 +102,19 @@ int main(){
                 break;
             }else if(menu == 1){
                 // printf("1. 신규 도서 등록\n");
-
+                count = addBook(sp, count, 2);
             }else if(menu == 2){
                 // printf("2. 도서 삭제\n");
+                deleteBook(sp, count);
             }else if(menu == 3){
                 // printf("3. 도서 업데이트\n");
+                count = addBook(sp, count, 1);
             }else if(menu == 4){
                 // printf("4. 도서 목록\n");
+                listBook(sp, count, -1);
             }else if(menu == 5){
                 // printf("5. 도서 검색\n");
+                int no = selectBook(sp, count);
             }
 
 
