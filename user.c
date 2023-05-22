@@ -11,7 +11,7 @@ int reservationBook(Book *b){
 }
 
 int returnBook(Book *b){
-    b->reservation = 1;
+    b->borrow = 0;
     return 0;
 }
 

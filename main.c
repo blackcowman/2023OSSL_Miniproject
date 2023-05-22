@@ -3,6 +3,18 @@
 
 int main(){
     int usertype;
+    Book *sp[100];
+    int index = 0; //데이터 번호
+    int count = 0, menu;
+    int no;
+    count = loadBook(sp);
+    if (count == -1) {
+        printf("로딩 실패!!!\n");
+        count = 0;
+    } else {
+        index = count;
+    }
+
     while (1)
     {
         while (1)
@@ -16,10 +28,15 @@ int main(){
         }
         if(usertype == 1){
             //여기에 유저 메뉴를 출력하는 함수를 넣을 것
+            menu = usermenu();
+            
         }
         if (usertype ==2)
         {
             //여기에 사서 메뉴를 출력하는 함수를 넣을 것
+            menu = librarianmenu();
+            
+
         }
         
     }
