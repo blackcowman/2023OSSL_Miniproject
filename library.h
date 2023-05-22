@@ -17,6 +17,7 @@ void readBook(Book b);
 void listBook(Book *b[], int count);
 int deleteBook(Book *b);
 int borrowBook(Book *b);
+int returnBook(Book *b);
 int reservationBook(Book *b);
 int selectDataNo(Book *b[], int count);
 int selectBook();

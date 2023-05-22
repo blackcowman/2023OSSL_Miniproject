@@ -1,11 +1,18 @@
 #include "library.h"
 
 int borrowBook(Book *b){
-
+    b->borrow = 1;
+    return 0;
 }
 
 int reservationBook(Book *b){
+    b->reservation = 1;
+    return 0;
+}
 
+int returnBook(Book *b){
+    b->reservation = 1;
+    return 0;
 }
 
 int usermenu(){
