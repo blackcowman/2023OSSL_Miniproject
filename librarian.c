@@ -34,7 +34,7 @@ void readBook(Book b){
 void listBook(Book *b[], int count) {
   int i = 0;
   int countNumber = 0;
-  printf("\nNo 청구기호   책 제목  작가명   청구번호   대출여부  예약여부\n");
+  printf("\nNo 청구기호   책 제목  작가명   출판사   대출여부  예약여부\n");
   printf("=================================\n");
   for (; i < count; i++) {
     if (b[i]->del == 1)
@@ -51,7 +51,7 @@ void listBook(Book *b[], int count) {
 void listBorrowedBook(Book *b[], int count) {
   int i = 0;
   int countNumber = 0;
-  printf("\nNo  청구기호   책 제목  작가명   청구번호   대출여부  예약여부\n");
+  printf("\nNo  청구기호   책 제목  작가명   출판사   대출여부  예약여부\n");
   printf("=================================\n");
   for (; i < count; i++) {
     if (b[i]->del == 1 )
@@ -135,7 +135,7 @@ void searchBook(Book *s[], int count) {
   printf("이름은?");
   scanf("%s", search);
 
-  printf("\nNo  청구기호   책 제목  작가명   청구번호   대출여부  예약여부\n");
+  printf("\nNo  청구기호   책 제목  작가명   출판사   대출여부  예약여부\n");
   printf("=================================\n");
   for (int i = 0; i < count; i++) {
     if (s[i] == NULL)
