@@ -31,10 +31,35 @@ int main(){
 
             if(menu == 0){
                 // printf("0. 로그아웃\n");
+                break;
             }else if(menu == 1){
                 // printf("1. 도서 목록\n");
             }else if(menu == 2){
                 // printf("2. 도서 대출\n");
+                no = selectDataNo(sp, index);
+                if (no == 0) {
+                    printf("취소됨!\n");
+                    continue;
+                }
+                int borrowok;
+
+                printf("대출 하시겠습니까?(대출:1)");
+                scanf("%d", &borrowok);
+                if (borrowok == 1) {
+                    if (sp[no - 1]->borrow == 1) {
+                    int reservationok = 0;
+                    printf("책이 이미 대출중입니다. 예약하시겠습니까?(예약:1)\n >> ");
+                    scanf("%d", &reservationok);
+                    reservationBook(sp[no - 1]);
+                    printf("예약되었습니다\n");
+                    } else {
+                    borrowBook(sp[no - 1]);
+                    printf("대출되었습니다\n");
+                    }
+                }
+                
+
+
             }else if(menu == 3){
                 // printf("3. 도서 반납\n");
             }else if(menu == 4){
@@ -49,6 +74,7 @@ int main(){
             menu = librarianmenu();
             if(menu == 0){
                 // printf("0. 로그아웃\n");
+                break;
             }else if(menu == 1){
                 // printf("1. 신규 도서 등록\n");
             }else if(menu == 2){
